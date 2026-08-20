@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RELIABLE.AI — RAG fiable sobre tu documentación interna</title>
+<meta name="description" content="RELIABLE.AI diseña, prueba y mantiene sistemas RAG sobre tu documentación interna para que tu equipo pregunte en lenguaje natural y reciba respuestas reales, con fuente citada.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --bg:#05060A;
+    --bg-2:#0B0E17;
+    --panel:#10131F;
+    --cyan:#22E5C9;
+    --violet:#8B5CF6;
+    --ink:#E8ECF4;
+    --muted:#8B93A7;
+    --border:#1D2233;
+    --radius:16px;
+    --max-w:1200px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Space Grotesk',system-ui,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;
+    background-image:
+      radial-gradient(circle at 15% 0%, rgba(34,229,201,0.08), transparent 40%),
+      radial-gradient(circle at 90% 20%, rgba(139,92,246,0.10), transparent 40%);
+    background-attachment:fixed;
+  }
+  .mono{font-family:'JetBrains Mono',monospace;}
+  img,svg{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:var(--max-w);margin:0 auto;padding:0 24px;}
+  :focus-visible{outline:2px solid var(--cyan);outline-offset:3px;}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(5,6,10,0.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;max-width:var(--max-w);margin:0 auto;}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.15rem;letter-spacing:0.01em;}
+  .brand .dot{width:10px;height:10px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);}
+  .nav-links{display:flex;gap:30px;list-style:none;}
+  .nav-links a{font-weight:500;font-size:0.92rem;color:var(--muted);transition:color .2s;}
+  .nav-links a:hover{color:var(--cyan);}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;font-weight:600;font-size:0.9rem;cursor:pointer;border:1px solid transparent;transition:all .2s ease;}
+  .btn-solid{background:var(--cyan);color:#05060A;}
+  .btn-solid:hover{background:#5CF3DA;box-shadow:0 0 24px rgba(34,229,201,0.4);}
+  .btn-line{border-color:var(--border);color:var(--ink);background:transparent;}
+  .btn-line:hover{border-color:var(--cyan);color:var(--cyan);}
+  .menu-toggle{display:none;background:none;border:none;font-size:1.4rem;color:var(--ink);}
+
+  .hero{padding:110px 0 90px;position:relative;overflow:hidden;}
+  .hero .wrap{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);background:rgba(34,229,201,0.06);color:var(--cyan);padding:7px 14px;border-radius:999px;font-size:0.8rem;font-weight:600;margin-bottom:24px;}
+  .eyebrow .pulse{width:8px;height:8px;border-radius:50%;background:var(--cyan);animation:pulse 1.8s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,229,201,0.5);}70%{box-shadow:0 0 0 8px rgba(34,229,201,0);}100%{box-shadow:0 0 0 0 rgba(34,229,201,0);}}
+  h1{font-size:clamp(2.2rem,4.4vw,3.6rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:22px;}
+  h1 .accent{color:var(--cyan);}
+  .hero p.lead{font-size:1.12rem;color:var(--muted);max-width:52ch;margin-bottom:34px;}
+  .hero-actions{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:40px;}
+  .hero-trust{display:flex;gap:26px;flex-wrap:wrap;font-size:0.82rem;color:var(--muted);}
+  .hero-trust div{display:flex;align-items:center;gap:8px;}
+  .hero-trust i{color:var(--cyan);}
+
+  .terminal{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.5);animation:floaty 6s ease-in-out infinite;}
+  @keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+  .terminal-bar{display:flex;align-items:center;gap:8px;padding:14px 18px;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02);}
+  .terminal-bar span{width:11px;height:11px;border-radius:50%;}
+  .terminal-bar .r{background:#FF5F57;}.terminal-bar .y{background:#FEBC2E;}.terminal-bar .g{background:#28C840;}
+  .terminal-bar .title{margin-left:8px;font-size:0.78rem;color:var(--muted);}
+  .terminal-body{padding:22px;font-family:'JetBrains Mono',monospace;font-size:0.84rem;}
+  .terminal-body .line{margin-bottom:10px;color:var(--muted);}
+  .terminal-body .line .k{color:var(--violet);}
+  .terminal-body .line .ok{color:var(--cyan);}
+  .metric-block{margin-top:16px;padding-top:16px;border-top:1px dashed var(--border);}
+  .metric-block .row{display:flex;justify-content:space-between;margin-bottom:10px;font-size:0.82rem;}
+  .metric-block .row .v{color:var(--cyan);font-weight:600;}
+
+  .logos{padding:48px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .logos p{text-align:center;color:var(--muted);font-size:0.8rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:28px;}
+  .logo-grid{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:30px;}
+  .logo-grid span{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:1rem;color:var(--muted);opacity:0.7;}
+
+  section{padding:100px 0;}
+  .section-head{max-width:640px;margin:0 auto 56px;text-align:center;}
+  h2{font-size:clamp(1.7rem,3vw,2.5rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:16px;}
+  .section-head p{color:var(--muted);font-size:1.05rem;}
+
+  .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .feature-card{padding:30px;border-radius:var(--radius);background:var(--panel);border:1px solid var(--border);transition:border-color .2s ease, transform .2s ease;}
+  .feature-card:hover{border-color:var(--cyan);transform:translateY(-4px);}
+  .feature-icon{width:46px;height:46px;border-radius:10px;background:rgba(34,229,201,0.08);border:1px solid var(--border);color:var(--cyan);display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:20px;}
+  .feature-card h3{font-size:1.1rem;font-weight:600;margin-bottom:10px;}
+  .feature-card p{color:var(--muted);font-size:0.92rem;}
+
+  .steps{background:var(--bg-2);}
+  .steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+  .step{padding:26px;border-radius:var(--radius);background:var(--panel);border:1px solid var(--border);position:relative;}
+  .step-num{font-family:'JetBrains Mono',monospace;color:var(--cyan);font-weight:700;font-size:0.9rem;margin-bottom:14px;}
+  .step h3{font-size:1rem;font-weight:600;margin-bottom:8px;}
+  .step p{font-size:0.88rem;color:var(--muted);}
+
+  .testimonial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .testimonial{padding:30px;border-radius:var(--radius);background:var(--panel);border:1px solid var(--border);}
+  .testimonial .stars{color:var(--cyan);margin-bottom:16px;font-size:0.85rem;}
+  .testimonial p.quote{font-size:0.95rem;color:var(--ink);margin-bottom:22px;}
+  .author{display:flex;align-items:center;gap:12px;}
+  .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--violet));display:flex;align-items:center;justify-content:center;font-weight:700;color:#05060A;font-size:0.85rem;}
+  .author .name{font-weight:600;font-size:0.88rem;}
+  .author .role{font-size:0.78rem;color:var(--muted);}
+
+  .certs{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:48px;}
+  .cert{display:flex;align-items:center;gap:10px;border:1px solid var(--border);padding:12px 18px;border-radius:10px;font-size:0.82rem;font-weight:600;color:var(--muted);}
+  .cert i{color:var(--cyan);}
+
+  .cta-band{background:linear-gradient(135deg, rgba(34,229,201,0.10), rgba(139,92,246,0.10)), var(--panel);border:1px solid var(--border);border-radius:24px;padding:70px 48px;text-align:center;max-width:var(--max-w);margin:0 auto;}
+  .cta-band h2{margin-bottom:16px;}
+  .cta-band p{color:var(--muted);max-width:520px;margin:0 auto 34px;}
+
+  footer{background:var(--bg-2);color:var(--muted);padding:64px 0 32px;font-size:0.88rem;border-top:1px solid var(--border);}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;}
+  .footer-brand{display:flex;align-items:center;gap:10px;color:var(--ink);font-weight:700;font-size:1.05rem;margin-bottom:16px;}
+  .footer-col h4{color:var(--ink);font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:16px;}
+  .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+  .footer-col a{color:var(--muted);transition:color .2s;}
+  .footer-col a:hover{color:var(--cyan);}
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;border-top:1px solid var(--border);padding-top:28px;}
+  .social-links{display:flex;gap:14px;}
+  .social-links a{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .2s;}
+  .social-links a:hover{border-color:var(--cyan);color:var(--cyan);}
+  .status-strip{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--cyan);margin-top:8px;}
+
+  @media (max-width:960px){
+    .hero .wrap{grid-template-columns:1fr;}
+    .features-grid,.testimonial-grid{grid-template-columns:1fr 1fr;}
+    .steps-grid{grid-template-columns:1fr 1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:640px){
+    .nav-links{display:none;}
+    .menu-toggle{display:block;}
+    section{padding:64px 0;}
+    .features-grid,.testimonial-grid,.steps-grid{grid-template-columns:1fr;}
+    .cta-band{padding:44px 24px;}
+    .footer-grid{grid-template-columns:1fr;}
+  }
+  @media (prefers-reduced-motion:reduce){ .terminal{animation:none;} .pulse{animation:none;} *{transition:none !important;} }
+
+  /* Contact form */
+  .contact-form{display:flex;flex-direction:column;gap:14px;max-width:520px;margin:0 auto;text-align:left;}
+  .contact-form input,.contact-form textarea{
+    padding:13px 16px;border-radius:8px;border:1px solid var(--border);
+    font-family:inherit;font-size:0.92rem;color:var(--ink);background:var(--bg-2);
+  }
+  .contact-form input::placeholder,.contact-form textarea::placeholder{color:var(--muted);}
+  .contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(34,229,201,0.15);}
+  .contact-form textarea{min-height:110px;resize:vertical;}
+  .contact-form button{align-self:flex-start;}
+  .form-note{font-size:0.78rem;color:var(--muted);margin-top:2px;}
+  .form-note a{color:var(--cyan);text-decoration:underline;}
+
+  /* Privacy modal */
+  .privacy-modal{display:none;position:fixed;inset:0;background:rgba(5,6,10,0.82);z-index:100;align-items:center;justify-content:center;padding:24px;}
+  .privacy-modal:target{display:flex;}
+  .privacy-card{background:var(--panel);border:1px solid var(--border);color:var(--ink);max-width:560px;border-radius:var(--radius);padding:36px;position:relative;}
+  .privacy-card h3{color:var(--cyan);margin-bottom:14px;font-size:1.25rem;}
+  .privacy-card p{color:var(--muted);font-size:0.9rem;margin-bottom:10px;}
+  .privacy-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--ink);}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="#" class="brand"><span class="dot"></span> RELIABLE<span class="mono" style="color:var(--cyan);">.AI</span></a>
+    <ul class="nav-links">
+      <li><a href="#features">Servicio</a></li>
+      <li><a href="#how-it-works">Cómo trabajamos</a></li>
+      <li><a href="#testimonials">Principios</a></li>
+      <li><a href="#trust">Contacto</a></li>
+    </ul>
+    <div style="display:flex;gap:12px;">
+      <a href="#demo" class="btn btn-line">Contacto</a>
+      <a href="#demo" class="btn btn-solid">Consulta gratuita</a>
+    </div>
+    <button class="menu-toggle" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow"><span class="pulse"></span> En fase de validación de mercado</span>
+        <h1>Que tu equipo pregunte, <span class="accent">y tu documentación responda de verdad.</span></h1>
+        <p class="lead">RELIABLE.AI diseña sistemas RAG sobre tu documentación interna — manuales, políticas, bases de conocimiento — para que cualquier empleado obtenga respuestas fiables en lenguaje natural, con la fuente citada. Nada de chatbots genéricos que alucinan.</p>
+        <div class="hero-actions">
+          <a href="#demo" class="btn btn-solid">Solicitar consulta gratuita <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="#features" class="btn btn-line"><i class="fa-solid fa-terminal"></i> Ver el servicio</a>
+        </div>
+        <div class="hero-trust">
+          <div><i class="fa-solid fa-magnifying-glass"></i> Trazabilidad de fuentes</div>
+          <div><i class="fa-solid fa-flask"></i> Testing riguroso</div>
+          <div><i class="fa-solid fa-arrows-rotate"></i> Mantenimiento continuo</div>
+        </div>
+      </div>
+
+      <div class="terminal" role="img" aria-label="Terminal mostrando una consulta RAG con respuesta y fuente citada">
+        <div class="terminal-bar"><span class="r"></span><span class="y"></span><span class="g"></span><span class="title mono">reliable-ai — rag-query.sh</span></div>
+        <div class="terminal-body">
+          <div class="line"><span class="k">$</span> reliable-ai query "¿cuántos días de teletrabajo tengo?"</div>
+          <div class="line">→ buscando en Manual_RRHH_2026.pdf...</div>
+          <div class="line">→ fuente localizada <span class="ok">[OK]</span></div>
+          <div class="line">→ respuesta generada con cita <span class="ok">[OK]</span></div>
+          <div class="line">→ respuesta: <span class="ok">"Hasta 2 días/semana (p.14)"</span></div>
+          <div class="metric-block">
+            <div class="row"><span>Fuente citada</span><span class="v">Manual_RRHH_2026.pdf</span></div>
+            <div class="row"><span>Sin fuente fiable</span><span class="v">"No lo sé"</span></div>
+            <div class="row"><span>Fase actual</span><span class="v">Diseño → Pruebas → Mantenimiento</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="logos" aria-label="Principios de trabajo">
+    <div class="wrap">
+      <p>// Cómo trabajamos</p>
+      <div class="logo-grid">
+        <span>trazabilidad</span><span>testing_riguroso</span><span>transparencia</span><span>mantenimiento</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow"><i class="fa-solid fa-microchip"></i> Servicio</span>
+        <h2>El primer servicio, hecho bien: RAG sobre tu documentación</h2>
+        <p>Es el único servicio de RELIABLE.AI por ahora. Con el tiempo iremos sumando más, pero empezamos por resolver esto de forma sólida.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card"><div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div><h3>RAG sobre tus documentos</h3><p>Conectamos tus manuales, políticas internas y bases de conocimiento a un sistema que responde en lenguaje natural.</p></div>
+        <div class="feature-card"><div class="feature-icon"><i class="fa-solid fa-wave-square"></i></div><h3>Respuestas con fuente citada</h3><p>Cada respuesta señala el documento exacto de origen. Sin fuente fiable, el sistema dice "no lo sé".</p></div>
+        <div class="feature-card"><div class="feature-icon"><i class="fa-solid fa-file-shield"></i></div><h3>Diseño fundamentado</h3><p>Arquitectura RAG pensada para tu documentación real, con control explícito de qué puede y no puede responder.</p></div>
+        <div class="feature-card"><div class="feature-icon"><i class="fa-solid fa-eye"></i></div><h3>Pruebas exhaustivas</h3><p>Validamos casos límite antes de que ningún empleado use el sistema en producción.</p></div>
+        <div class="feature-card"><div class="feature-icon"><i class="fa-solid fa-code-branch"></i></div><h3>Mantenimiento real</h3><p>Seguimiento continuo: ajustes cuando cambia tu documentación y monitorización de la calidad de las respuestas.</p></div>
+        <div class="feature-card"><div class="feature-icon"><i class="fa-solid fa-globe"></i></div><h3>Sobre tu contenido real</h3><p>Nada de demos genéricas: trabajamos directamente sobre tu documentación técnica e interna actual.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how-it-works" class="steps">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow"><i class="fa-solid fa-diagram-project"></i> Cómo trabajamos</span>
+        <h2>Diseño, pruebas y mantenimiento — en ese orden</h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step"><div class="step-num mono">01_ENTENDER</div><h3>Entender</h3><p>Empezamos por entender tu documentación, no por venderte una demo bonita.</p></div>
+        <div class="step"><div class="step-num mono">02_DISEÑAR</div><h3>Diseño</h3><p>Arquitectura RAG con las fuentes correctas y control de qué puede responder el sistema.</p></div>
+        <div class="step"><div class="step-num mono">03_PROBAR</div><h3>Pruebas</h3><p>Validación exhaustiva de casos límite antes de que lo use ningún empleado.</p></div>
+        <div class="step"><div class="step-num mono">04_MANTENER</div><h3>Mantenimiento</h3><p>Ajustes continuos y monitorización de la calidad de las respuestas. No se instala y se olvida.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow"><i class="fa-solid fa-quote-left"></i> Principios</span>
+        <h2>Cómo nos gusta trabajar</h2>
+      </div>
+      <div class="testimonial-grid">
+        <div class="testimonial"><p class="quote">"Empezamos por entender tu documentación, no por venderte una demo bonita."</p></div>
+        <div class="testimonial"><p class="quote">"Si una respuesta no puede rastrearse hasta su fuente exacta, no sale."</p></div>
+        <div class="testimonial"><p class="quote">"Un RAG no se instala y se olvida: seguimos ajustándolo cuando cambia tu documentación."</p></div>
+      </div>
+
+      <div class="certs">
+        <div class="cert"><i class="fa-solid fa-magnifying-glass"></i> Trazabilidad de fuentes</div>
+        <div class="cert"><i class="fa-solid fa-flask"></i> Testing riguroso</div>
+        <div class="cert"><i class="fa-solid fa-comment-dots"></i> Transparencia sobre límites</div>
+        <div class="cert"><i class="fa-solid fa-arrows-rotate"></i> Mejora continua</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo">
+    <div class="wrap">
+      <div class="cta-band">
+        <span class="eyebrow"><span class="pulse"></span> Consulta gratuita, sin compromiso</span>
+        <h2>Solicita una consulta gratuita</h2>
+        <p>Cuéntanos tu caso de uso y hablamos sin compromiso sobre cómo aplicaría un sistema RAG a tu documentación.</p>
+        <!--
+          Formulario con Web3Forms (https://web3forms.com/) — gratuito, sin backend propio.
+          Para activarlo: regístrate gratis en web3forms.com con el email de contacto de la empresa
+          y sustituye el valor "YOUR_WEB3FORMS_ACCESS_KEY_HERE" de abajo por la access key que te den.
+        -->
+        <form class="contact-form" action="https://formsubmit.co/2c63d5b3755b7c7d0cbf6ee6e8c4d9ef" method="POST">
+          <input type="hidden" name="_subject" value="(Hermes) [aireliable.solutions] Nuevo contacto">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="text" name="name" placeholder="Tu nombre" required>
+          <input type="email" name="email" placeholder="Tu email" required>
+          <input type="text" name="company" placeholder="Empresa (opcional)">
+          <textarea name="message" placeholder="Cuéntanos tu caso de uso" required></textarea>
+          <button type="submit" class="btn btn-solid">Solicitar consulta gratuita</button>
+          <p class="form-note">Al enviar este formulario aceptas nuestra <a href="#privacidad">política de privacidad</a>.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="trust">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><span class="dot"></span> RELIABLE.AI</div>
+        <p style="max-width:32ch;">RAG fiable sobre tu documentación interna. Fundada por Álvaro de Lucas.</p>
+        <div class="status-strip"><span class="pulse" style="width:6px;height:6px;border-radius:50%;background:var(--cyan);"></span> En fase de validación de mercado</div>
+      </div>
+      <div class="footer-col"><h4>Servicio</h4><ul><li><a href="#features">Qué hacemos</a></li><li><a href="#how-it-works">Cómo trabajamos</a></li><li><a href="#testimonials">Principios</a></li><li><a href="#demo">Contacto</a></li></ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul><li><a href="#demo">Sobre nosotros</a></li><li><a href="#demo">Contacto</a></li></ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul><li><a href="#privacidad">Política de privacidad</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span class="mono">© 2026 RELIABLE.AI — proyecto en fase de validación de mercado.</span>
+      <div class="social-links">
+        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="#" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="privacy-modal" id="privacidad">
+  <div class="privacy-card">
+    <a href="#demo" class="privacy-close" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></a>
+    <h3>Política de privacidad</h3>
+    <p>Los datos que envías a través del formulario de contacto (nombre, email, empresa y mensaje) se usan exclusivamente para responder a tu solicitud de consulta.</p>
+    <p>No compartimos, vendemos ni cedemos tus datos a terceros. No se usan con fines publicitarios ni se almacenan más tiempo del necesario para gestionar el contacto.</p>
+    <p>Si quieres que eliminemos tus datos, escríbenos a través del propio formulario o al email de contacto y lo haremos de inmediato.</p>
+  </div>
+</div>
+
+</body>
+</html>
