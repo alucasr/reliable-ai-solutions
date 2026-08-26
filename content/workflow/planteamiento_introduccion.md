@@ -1,0 +1,32 @@
+¡Perfecto! Como estratega de contenidos de Reliable AI Solutions, aquí tienes el plan detallado para los 10 artículos introductorios sobre RAG, priorizados por la frecuencia de enlace desde artículos de nivel intermedio y avanzado, en formato Markdown (tabla).
+
+**Principios rectores para la redacción:**
+
+*   **Lenguaje claro y accesible:** Evitar la jerga excesiva.
+*   **Ejemplos prácticos:** Utilizar analogías y casos de uso sencillos.
+*   **SEO:** Títulos y slugs optimizados para búsquedas relevantes.
+*   **Enlazado interno:**  El objetivo principal de estos artículos es ser puentes entre el contenido más básico y el avanzado.
+
+**PLAN DE ARTÍCULOS INTRODUCTORIOS RAG (Glosario Enlazable)**
+
+| # | Título Final                                    | Slug URL                | Preguntas Clave                                                                                                                                 | Público Objetivo                                            | Estimación (Palabras) | Artículos Intermedios que lo Enlazan (Ejemplos)   |
+|---|---------------------------------------------------|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------|------------------------|----------------------------------------------------|
+| 1 | **¿Qué es RAG? La Guía Definitiva para Principiantes** | /glosario/que-es-rag   | ¿Qué es RAG? ¿Por qué usar RAG en lugar de solo un LLM? ¿Qué problemas resuelve? ¿Un ejemplo sencillo de cómo funciona?                    | Directores, Gerentes de Producto, Analistas, Desarrolladores principiantes | 500                  |  * Optimización del Pipeline RAG * Selección de LLM para RAG * Técnicas de Aumento de Contexto |
+| 2 | **Retrieval: La Clave para el Conocimiento IA**     | /glosario/que-es-retrieval | ¿Qué es el "retrieval" en el contexto de la IA? ¿Por qué es esencial para RAG? ¿Cómo difiere de la búsqueda tradicional? ¿Un ejemplo intuitivo?         | Directores, Gerentes de Producto, Analistas, Desarrolladores principiantes | 450                  | * Arquitecturas de Retrieval Avanzadas * Métricas de Retrieval * Técnicas de filtrado de resultados |
+| 3 | **Embeddings: Convirtiendo Datos en Vectores de Poder** | /glosario/que-son-embeddings | ¿Qué son los embeddings? ¿Cómo representan datos (texto, imágenes) como vectores? ¿Por qué son útiles para el retrieval? ¿Un ejemplo simple? | Desarrolladores, Arquitectos de Datos, Científicos de Datos | 500                  | * Modelos de Embedding: Comparativa * Fine-tuning de Embeddings * Optimización del espacio vectorial|
+| 4 | **Chunking: Dividiendo la Información para Mejorar la IA** | /glosario/que-es-chunking | ¿Qué es el "chunking"? ¿Por qué es necesario dividir documentos largos? ¿Cómo afecta el tamaño de los chunks al rendimiento? ¿Consideraciones prácticas? | Desarrolladores, Arquitectos de Datos                     | 400                  | * Estrategias de Chunking Avanzadas * Chunking Semántico vs. Chunking por Tamaño * Impacto del Chunking en la Calidad de las Respuestas |
+| 5 | **LLMs: Los Motores de la Conversación IA (Sin Complicaciones)** | /glosario/que-es-llm   | ¿Qué es un LLM (Large Language Model)? ¿Cómo funciona a un nivel alto? ¿Qué tipo de tareas puede realizar? ¿Cuál es su papel en RAG?    | Directores, Gerentes de Producto, Analistas, Desarrolladores principiantes | 450                  | *  Selección de LLM para RAG * Técnicas de Prompting para LLMs * Optimización de Costos en LLMs |
+| 6 | **Bases de Datos Vectoriales: Almacenando el Conocimiento**| /glosario/que-es-db-vectorial | ¿Qué es una base de datos vectorial? ¿Por qué son necesarias para RAG? ¿Cómo se comparan con las bases de datos tradicionales? ¿Ejemplos? | Desarrolladores, Arquitectos de Datos                     | 450                  | * Diseño de Schemas Vectoriales * Escalabilidad de Bases de Datos Vectoriales * Integración con Sistemas Existentes |
+| 7 | **Reranking: Mejorando la Relevancia de los Resultados** | /glosario/que-es-reranking | ¿Qué es el reranking? ¿Por qué es importante después del retrieval inicial? ¿Cómo mejora la calidad de los resultados? ¿Un ejemplo sencillo? | Desarrolladores, Arquitectos de Datos                     | 400                  | *  Modelos de Reranking para RAG * Métricas de Evaluación del Reranking * Optimización del Reranking |
+| 8 | **Prompt Engineering: El Arte de Instruir a la IA**     | /glosario/que-es-prompt-engineering | ¿Qué es el "prompt engineering"? ¿Cómo afecta la redacción del prompt a la respuesta del LLM? ¿Ejemplos de prompts efectivos?                 | Directores, Gerentes de Producto, Analistas, Desarrolladores  | 550                  | * Técnicas Avanzadas de Prompting * Optimización de Prompts para RAG * Prompts para Tareas Específicas |
+| 9 | **Ventana de Contexto: Los Límites de la Memoria IA**    | /glosario/que-es-ventana-contexto | ¿Qué es la "ventana de contexto"? ¿Por qué es una limitación en los LLMs? ¿Cómo afecta el tamaño de la ventana al rendimiento de RAG? | Desarrolladores, Arquitectos de Datos                     | 400                  | * Técnicas para Extender la Ventana de Contexto * Estrategias de Compresión de Contexto * Impacto del Tamaño de la Ventana en el Costo |
+| 10 | **Evaluación y Groundedness: Asegurando la Fiabilidad de la IA** | /glosario/evaluacion-groundedness | ¿Qué significa "groundedness" en el contexto de la IA? ¿Por qué es importante evaluar la calidad de las respuestas generadas por RAG? ¿Cómo se puede medir? | Directores, Gerentes de Producto, Analistas | 500                  | *  Métricas de Evaluación de RAG * Herramientas de Evaluación Automática * Mejora de la Groundedness |
+
+**Consideraciones adicionales:**
+
+*   **Imágenes/Diagramas:**  Incluir representaciones visuales sencillas en cada artículo para mejorar la comprensión.
+*   **Ejemplos del mundo real:** Utilizar casos de uso concretos relevantes para el público B2B.
+*   **Actualización:**  Estos artículos deben ser revisados periódicamente para reflejar los últimos avances en el campo.
+*   **Llamadas a la acción (CTA):**  Al final de cada artículo, incluir un CTA para dirigir a los lectores a contenido más avanzado o a solicitar una demostración.
+
+Espero que este plan detallado te sea de gran utilidad. ¡Avísame si necesitas alguna modificación o tienes alguna pregunta!
