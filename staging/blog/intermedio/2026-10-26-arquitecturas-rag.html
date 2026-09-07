@@ -1,0 +1,83 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arquitecturas RAG: De lo Naive a lo Agentic · Reliable AI Solutions Blog</title>
+<style>
+body{font-family:-apple-system,Segoe UI,Inter,sans-serif;max-width:820px;margin:0 auto;padding:24px;
+line-height:1.65;color:#1a1a2e;background:#fff}
+header a{color:#0B1F3A;text-decoration:none;font-weight:700}
+nav.top{margin-bottom:32px;border-bottom:1px solid #eee;padding-bottom:12px}
+.meta{color:#666;font-size:0.9em;margin-bottom:24px}
+.tags a{display:inline-block;background:#eef2ff;color:#3730a3;padding:3px 10px;border-radius:12px;
+font-size:0.82em;margin:2px 4px 2px 0;text-decoration:none}
+h1{color:#0B1F3A} h2{color:#0B1F3A;margin-top:1.8em} h3{color:#1e3a5f}
+.card{border:1px solid #eee;border-radius:10px;padding:16px 20px;margin-bottom:14px}
+.card .d{color:#888;font-size:0.85em}
+.badge{display:inline-block;font-size:0.75em;padding:2px 8px;border-radius:8px;margin-left:8px}
+.badge.pub{background:#dcfce7;color:#166534}
+.badge.tbd{background:#f1f5f9;color:#64748b}
+footer{margin-top:60px;border-top:1px solid #eee;padding-top:16px;color:#999;font-size:0.85em}
+</style></head><body>
+<nav class="top"><a href="/blog/index.html">&larr; Índice del blog RAG</a></nav>
+<article><h1>Arquitecturas RAG: De lo Naive a lo Agentic</h1>
+<div class="meta">Publicado el 2026-10-26 · Artículo intermedio 8/12 · Serie RAG para empresas</div>
+<div class="tags">Conceptos: <a href="/blog/glosario/que-es-rag.html">RAG</a> <a href="/blog/glosario/componentes-clave-rag.html">Agentes</a> <a href="/blog/glosario/que-es-rag.html">LLM</a> <a href="/blog/glosario/componentes-clave-rag.html">Arquitectura</a></div>
+<h1>Arquitecturas RAG: De lo Naive a lo Agentic</h1>
+<p>En nuestra serie &quot;RAG para empresas&quot;, hemos explorado los componentes clave para construir un sistema de <strong>Retrieval Augmented Generation</strong> (RAG) robusto y preciso: desde la preparación de datos y el chunking, pasando por los embeddings, la búsqueda vectorial y el reranking. Ahora, vamos a dar un paso atrás y analizar las diferentes arquitecturas RAG que una empresa puede implementar, desde las más básicas hasta las más avanzadas. En este artículo, contrastaremos la arquitectura &quot;naive&quot; o básica con los sistemas &quot;agentic&quot; que incorporan razonamiento y herramientas, profundizando en sus fortalezas, debilidades y casos de uso ideales.</p>
+<h2>¿Qué es una Arquitectura RAG &quot;Naive&quot;?</h2>
+<p>La arquitectura RAG &quot;naive&quot;, también conocida como &quot;retrieve-then-generate&quot;, es la forma más simple y directa de implementar RAG. Su flujo es sencillo:</p>
+<p>1. <strong>Retrieve:</strong> Se recibe una pregunta del usuario.  Se utiliza un sistema de recuperación de información (normalmente <strong>búsqueda vectorial</strong> o una combinación con <strong>BM25</strong>) para extraer los fragmentos de datos más relevantes del corpus de conocimiento.</p>
+<p>2. <strong>Generate:</strong> El Large Language Model (LLM) recibe la pregunta original <em>junto</em> con los fragmentos recuperados y genera una respuesta.</p>
+<p>Este enfoque es relativamente fácil de implementar y entender, lo que lo hace un buen punto de partida. Sin embargo, tiene limitaciones significativas. El LLM recibe todos los documentos recuperados de una vez, independientemente de su relevancia específica para cada parte de la pregunta. Esto puede sobrecargar el modelo, generar respuestas imprecisas (al incluir información irrelevante) y limitar su capacidad para razonar sobre el contexto.</p>
+<h2>Arquitecturas RAG &quot;Agentic&quot;: Razonamiento y Herramientas</h2>
+<p>Las arquitecturas RAG &quot;agentic&quot; representan una evolución significativa, introduciendo elementos de <strong>razonamiento</strong>, <strong>planificación</strong> y <strong>uso de herramientas</strong>. En lugar de simplemente recuperar y generar, los sistemas agentic permiten que el LLM tome decisiones activas sobre cómo abordar la consulta del usuario.  Un agente RAG típicamente incluye los siguientes componentes:</p>
+<ul>
+<li><strong>Planificación:</strong> El LLM planifica una serie de pasos para responder la pregunta.</li>
+<li><strong>Reflexión:</strong> El LLM evalúa sus propios pasos y ajusta su plan si es necesario.</li>
+<li><strong>Herramientas:</strong> El agente tiene acceso a &quot;herramientas&quot; que le permiten interactuar con el entorno. Estas herramientas pueden incluir:</li>
+</ul>
+<p>    * <strong>Búsqueda:</strong>  Acceso a sistemas de recuperación de información (como el retrieve-then-generate básico).</p>
+<p>    * <strong>Cálculo:</strong>  Herramientas para realizar cálculos matemáticos.</p>
+<p>    * <strong>APIs externas:</strong>  Acceso a datos y funcionalidades a través de APIs.</p>
+<p>    * <strong>Búsqueda en Web:</strong>  Capacidad para buscar información en tiempo real en internet.</p>
+<ul>
+<li><strong>Re-consulta:</strong> El agente puede decidir cuándo necesita realizar una nueva búsqueda para obtener más información.</li>
+</ul>
+<p>El proceso en una arquitectura agentic puede incluir múltiples iteraciones de búsqueda, razonamiento y generación, lo que permite abordar preguntas más complejas que requieren múltiples pasos y la combinación de información de diferentes fuentes. La arquitectura <strong>LangChain</strong> es un framework popular que facilita la construcción de agentes RAG.</p>
+<h2>¿Cuándo Usar Cada Arquitectura?</h2>
+<p>La elección entre una arquitectura &quot;naive&quot; y una &quot;agentic&quot; depende del caso de uso específico y de la complejidad de las preguntas que el sistema debe responder.</p>
+<p><strong>Arquitectura &quot;Naive&quot; (Simple):</strong></p>
+<ul>
+<li><strong>Casos de Uso:</strong></li>
+</ul>
+<p>    * <strong>Preguntas frecuentes (FAQs):</strong> Cuando las preguntas son predecibles y las respuestas se encuentran directamente en los documentos recuperados.</p>
+<p>    * <strong>Resúmenes de documentos:</strong>  Generar resúmenes concisos de documentos individuales.</p>
+<p>    * <strong>Prototipos rápidos:</strong>  Para experimentar con RAG y evaluar su potencial.</p>
+<ul>
+<li><strong>Ventajas:</strong> Implementación sencilla, baja latencia, fácil de depurar.</li>
+<li><strong>Desventajas:</strong>  Limitada capacidad para razonamiento,  propensa a errores al manejar preguntas complejas o ambiguas,  puede generar respuestas redundantes o irrelevantes si se recuperan muchos documentos.</li>
+</ul>
+<p><strong>Arquitectura &quot;Agentic&quot; (Avanzada):</strong></p>
+<ul>
+<li><strong>Casos de Uso:</strong></li>
+</ul>
+<p>    * <strong>Soporte técnico avanzado:</strong> Resolver problemas complejos que requieren múltiples pasos y la consulta de diferentes bases de conocimiento.</p>
+<p>    * <strong>Investigación:</strong>  Facilitar la investigación exploratoria combinando información de múltiples fuentes y realizando análisis complejos.</p>
+<p>    * <strong>Análisis de datos:</strong>  Analizar datos estructurados y no estructurados para obtener información valiosa.</p>
+<p>    * <strong>Automatización de tareas:</strong>  Crear flujos de trabajo automatizados que requieran la interacción con diferentes herramientas y sistemas.</p>
+<ul>
+<li><strong>Ventajas:</strong> Mayor capacidad de razonamiento,  mejor manejo de preguntas complejas,  mayor autonomía y adaptabilidad,  posibilidad de usar herramientas externas para enriquecer las respuestas.</li>
+<li><strong>Desventajas:</strong> Implementación más compleja,  mayor latencia,  más difícil de depurar,  requiere un mayor poder computacional.</li>
+</ul>
+<h2>Autonomía y Adaptabilidad con Agentes RAG</h2>
+<p>Los agentes RAG representan un salto adelante en términos de <strong>autonomía</strong> y <strong>adaptabilidad</strong>. Al poder decidir cuándo buscar, qué herramientas usar y cuándo re-consultar, estos sistemas pueden superar las limitaciones de los enfoques &quot;naive&quot;.</p>
+<p>Consideremos un ejemplo: un usuario pregunta: &quot;Compara la tasa de mortalidad por COVID-19 en España y Francia en el segundo trimestre de 2021, considerando la edad promedio de la población&quot;.</p>
+<ul>
+<li><strong>RAG Naive:</strong>  Recuperaría documentos sobre mortalidad por COVID-19 en ambos países y en ese periodo, y luego pediría al LLM que genere una comparación.  El LLM podría tener dificultades para interpretar la solicitud,  ya que implica considerar la edad promedio de la población – un dato que podría no estar directamente presente en los documentos recuperados.</li>
+<li><strong>Agente RAG:</strong>  El agente podría primero recuperar documentos sobre las tasas de mortalidad por COVID-19. Luego, utilizando una herramienta de búsqueda en una base de datos demográfica, obtendría la edad promedio de la población en España y Francia.  Finalmente, con la información combinada, generaría la comparación solicitada. El agente también podría, durante el proceso, determinar que necesita buscar datos específicos sobre comorbilidades para obtener una imagen más completa.</li>
+</ul>
+<p>Esta capacidad de <strong>adaptación</strong> es crucial para construir sistemas RAG que puedan manejar la complejidad inherente a muchas preguntas empresariales. La capacidad de un agente para iterar sobre su búsqueda, refinar su entendimiento y utilizar herramientas le permite ofrecer respuestas más precisas, completas y contextualizadas.</p>
+<p>En resumen, la elección entre una arquitectura RAG &quot;naive&quot; y una &quot;agentic&quot; es una decisión estratégica que debe basarse en las necesidades específicas de su empresa. Si bien las arquitecturas &quot;naive&quot; ofrecen una solución rápida y sencilla para tareas básicas, las arquitecturas &quot;agentic&quot; permiten construir sistemas RAG más potentes, autónomos y adaptables, capaces de abordar los desafíos más complejos.</p>
+<p>¿Está buscando una guía experta para implementar RAG en su empresa?  <strong>Contáctenos para una consulta gratuita</strong> y descubra cómo podemos ayudarle a aprovechar al máximo el poder de la IA generativa.</p>
+</article>
+<footer>Reliable AI Solutions — Serie técnica sobre RAG (Retrieval Augmented Generation) para empresas.</footer>
+</body></html>
