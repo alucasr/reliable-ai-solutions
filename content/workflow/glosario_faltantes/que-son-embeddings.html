@@ -1,0 +1,31 @@
+<h2>Embeddings: Convirtiendo Datos en Vectores de Poder</h2>
+
+<p>En Reliable AI Solutions, entendemos que los conceptos de Inteligencia Artificial pueden parecer complejos al principio. Este glosario está diseñado para desmitificar la tecnología que impulsa nuestras soluciones RAG (Retrieval-Augmented Generation).  Empezamos con una explicación de los "embeddings", un componente fundamental para la búsqueda y comprensión de información.</p>
+
+<h3>¿Qué son los Embeddings?</h3>
+
+<p>Los embeddings, en términos sencillos, son representaciones numéricas de datos.  Piensa en ellos como una traducción de información, ya sea texto, imágenes, audio o incluso datos tabulares, a un lenguaje que las máquinas pueden entender y procesar.  En lugar de tratar una palabra o una imagen como una entidad abstracta, los embeddings la convierten en una lista de números (un vector). Estos números capturan el significado y el contexto del dato original.</p>
+
+<h3>Representación como Vectores Numéricos</h3>
+
+<p>La magia ocurre cuando un modelo de machine learning (como un transformer) aprende a crear estos embeddings. Este modelo analiza grandes cantidades de datos y descubre las relaciones entre diferentes elementos. Por ejemplo, las palabras "rey" y "reina" son conceptualmente relacionadas, y el embedding reflejará esta relación.  La posición de cada número en el vector no es arbitraria;  es el resultado de un entrenamiento exhaustivo que intenta capturar la semántica subyacente.  Un vector de embedding de "perro" será similar al de "can", pero diferente al de "coche".  La distancia entre estos vectores en un espacio multidimensional representa la similitud semántica entre los elementos que representan.</p>
+
+<h3>¿Por Qué son Útiles para el Retrieval Semántico?</h3>
+
+<p>El retrieval semántico es la capacidad de encontrar información relevante no basándose en palabras clave exactas, sino en el *significado* de la consulta.  Aquí es donde los embeddings brillan. En lugar de buscar documentos que contengan exactamente las palabras que escribiste, un sistema RAG utiliza los embeddings para buscar documentos que tengan un embedding *similar* al tuyo.  Esto significa que si buscas información sobre "soluciones para la gestión de datos en la nube", el sistema puede encontrar documentos que hablen de "almacenamiento en la nube para empresas" o "optimización de bases de datos cloud", incluso si no utilizan las mismas palabras exactas. Es como buscar sinónimos y conceptos relacionados.</p>
+
+<h3>Una Analogía: El Mapa de Significados</h3>
+
+<p>Imagina un mapa donde cada palabra es una ciudad.  Las ciudades cercanas en el mapa representan palabras con significados similares.  "Madrid" estaría cerca de "Barcelona", pero lejos de "Londres".  Los embeddings son como este mapa, pero en un espacio multidimensional (que no podemos visualizar completamente, pero que existe matemáticamente).  Cuando buscas algo, el sistema no busca en una lista de palabras, sino que busca las "ciudades" (embeddings) más cercanas en este mapa de significados.</p>
+
+<ul>
+  <li><strong>Documento 1:</strong> "Soluciones para la gestión de datos en la nube" - Embedding 1</li>
+  <li><strong>Documento 2:</strong> "Almacenamiento en la nube para empresas" - Embedding 2 (similar a Embedding 1)</li>
+  <li><strong>Documento 3:</strong> "Optimización de bases de datos cloud" - Embedding 3 (similar a Embedding 1)</li>
+</ul>
+
+<p>Cuando una consulta de usuario se expresa, se transforma en un embedding y se busca los documentos con los embeddings más cercanos. </p>
+
+
+
+<p>Si necesitas ayuda para implementar soluciones de Retrieval-Augmented Generation que aprovechen el poder de los embeddings, <strong>contáctanos</strong> para una consultoría gratuita.  Nuestro equipo de expertos te ayudará a identificar las mejores estrategias para extraer el máximo valor de tus datos.</p>

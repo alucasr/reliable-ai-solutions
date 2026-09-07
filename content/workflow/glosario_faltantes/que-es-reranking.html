@@ -1,0 +1,25 @@
+<h2>Reranking: Mejorando la Relevancia de los Resultados</h2>
+
+<p>En el contexto de las soluciones de Recuperación Aumentada de Generación (RAG), el <i>reranking</i> es una etapa crucial para refinar los resultados obtenidos en la fase inicial de <i>retrieval</i> (recuperación). Después de que un modelo de lenguaje (LLM) responde a una consulta, es frecuente que se emplee un sistema de reranking para garantizar que los fragmentos de información recuperados sean los más relevantes para la pregunta del usuario.</p>
+
+<h3>¿Qué es el Reranking y por qué es importante?</h3>
+
+<p>El proceso de <i>retrieval</i> inicial suele ser rápido y eficiente, diseñado para recuperar un conjunto amplio de documentos o fragmentos de texto potencialmente relacionados con la consulta. Sin embargo, este primer filtro, aunque veloz, puede introducir imprecisiones.  Es decir, puede incluir fragmentos que, aunque "relacionados", no son los más adecuados para responder directamente la pregunta del usuario. Aquí es donde entra en juego el reranking.</p>
+
+<p>El <i>reranking</i> es una segunda pasada sobre los fragmentos de información recuperados inicialmente. Un modelo, normalmente diferente al utilizado para el retrieval inicial, evalúa la relevancia de cada fragmento *con respecto a la consulta original*.  El objetivo es reorganizar los fragmentos de acuerdo a su relevancia, posicionando en la parte superior aquellos que ofrecen la información más precisa y útil.</p>
+
+<h3>¿Cómo mejora el Reranking la calidad de los resultados?</h3>
+
+<p>Imaginemos que el usuario pregunta: "Cuáles son los riesgos de seguridad asociados al nuevo software de gestión de inventario?". El retrieval inicial podría devolver una serie de documentos sobre gestión de inventario, incluyendo artículos sobre logística, optimización de rutas, e incluso documentación sobre el software en sí.</p>
+
+<p>El reranking entra en juego para discernir entre estos resultados. En lugar de simplemente buscar documentos que contengan las palabras clave "riesgos", "seguridad" y "software", el modelo de reranking analiza la <i>relación semántica</i> entre la consulta y cada fragmento. Evalúa si el fragmento realmente aborda los riesgos de seguridad específicos del software.  Un fragmento que describe brevemente una vulnerabilidad potencial en el software y su impacto, aunque no contenga todas las palabras clave originales, podría ser considerado más relevante que un artículo extenso sobre logística.</p>
+
+<h3>Un ejemplo con un modelo Cross-Encoder</h3>
+
+<p>Los modelos <i>cross-encoder</i> son una opción popular para el reranking. A diferencia de los modelos tradicionales que procesan la consulta y el documento por separado, un cross-encoder procesa ambos, la consulta y el fragmento de texto, simultáneamente.  Esto permite una comprensión más profunda de su relación y facilita una evaluación de relevancia más precisa.</p>
+
+<p>En nuestro ejemplo, el cross-encoder recibiría la consulta ("Cuáles son los riesgos de seguridad asociados al nuevo software de gestión de inventario?") y cada uno de los fragmentos recuperados inicialmente.  El modelo calcularía una puntuación de relevancia para cada fragmento, basada en la interacción conjunta entre la consulta y el texto.  Los fragmentos con las puntuaciones más altas se reordenan en la parte superior, asegurando que los resultados más relevantes para el usuario sean los primeros en aparecer.</p>
+
+<p>Los beneficios del reranking son claros: mayor precisión en la información presentada al LLM, respuestas más contextualizadas y una experiencia de usuario significativamente mejorada.</p>
+
+<p>En Reliable AI Solutions, comprendemos la importancia crítica del reranking para el éxito de sus soluciones RAG. Le invitamos a ponerse en contacto con nosotros para una consulta gratuita y personalizada. Evaluaremos sus necesidades específicas y le mostraremos cómo podemos optimizar su implementación RAG con nuestras avanzadas técnicas de reranking.</p>
