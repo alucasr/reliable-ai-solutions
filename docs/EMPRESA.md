@@ -37,6 +37,18 @@ Tramite realizado antes de comprar los dominios, para verificar/reservar el nomb
 
 Nota de precio: Porkbun avisó (email 6-sep-2026) de subida de precio de renovación .solutions a **$31.41/año** a partir del 6-oct-2026 — revisar si renovar antes o dejar caducar alguno si no se usa.
 
+## Migracion webs a cPanel Namecheap (evitar bloqueo LaLiga) — EN CURSO (12-sep-2026)
+
+Motivo: los 3 dominios .solutions en Cloudflare Pages sufren bloqueo de IP compartida cada partido de LaLiga. reliablesolutions.ai (IP propia en Namecheap) no sufre esto. Decision: migrar los 3 sitios estaticos al mismo hosting cPanel que ya se paga (server706.web-hosting.com, cuenta reliudxl), como Addon/Create Domain, MANTENIENDO Cloudflare solo como gestor DNS (proxy desactivado) -- no se cambian nameservers.
+
+- cPanel: https://server706.web-hosting.com:2083/cpsess.../frontend/jupiter/domains/index.html#/create (la sesion cpsess cambia cada login)
+- Usuario cPanel: reliudxl (contraseña la del email original de Namecheap "Your Hosting Account Details" -- PENDIENTE cambiarla tras terminar, salio en claro en chat de Telegram)
+- Como los dominios siguen con nameservers de Cloudflare (no de Namecheap), cPanel exige validacion alternativa: registro TXT `_simpledcver.<dominio>` con un valor JWT unico por dominio, a añadir en Cloudflare DNS.
+- reliableai.solutions: formulario "Create Domain" completado, TXT generado, PENDIENTE añadirlo en Cloudflare (usuario haciendo login) y validar.
+- smartgenai.solutions y aireliable.solutions: mismo flujo pendiente de repetir tras reliableai.solutions.
+- Zips locales listos en /tmp/ (reliableai.solutions.zip, smartgenai.solutions.zip, aireliable.solutions.zip) con el index.html de cada uno, para subir via File Manager tras crear cada Addon Domain.
+- Sesion de navegador aislada usada: session="cpanel_task".
+
 ## Formularios de contacto
 Los 3 dominios de Cloudflare comparten el mismo endpoint hash de FormSubmit.co (`2c63d5b3755b7c7d0cbf6ee6e8c4d9ef`), pero **cada dominio requiere activación individual la primera vez que se envía desde él** (llega un email "Action Required: Activate FormSubmit").
 
