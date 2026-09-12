@@ -18,6 +18,23 @@ Los 4 se registraron en fechas muy próximas entre sí (posiblemente el mismo d�
 
 **Nota sobre reliablesolutions.ai (recuperado de conversacion, 17-ago-2026)**: este dominio YA TENIA hosting activo en Namecheap (email "Your Hosting Account Details for reliablesolutions.ai") con 3 registros MX propios detectados por Cloudflare. Por eso se decidio dejarlo **sin tocar nameservers** en vez de migrarlo a Cloudflare como los otros 3 — para no arriesgar romper el hosting/correo que ya tenia configurado. Se presentaron 2 opciones al usuario (mover tambien a Cloudflare ya que los registros estaban copiados, o dejarlo tal cual) — **no consta que se cerrara la decision final** en el historico revisado; sigue pendiente de confirmar.
 
+## Registro Mercantil Central (RMC) — Denominacion Social
+
+Tramite realizado antes de comprar los dominios, para verificar/reservar el nombre legal de la empresa.
+
+| Fecha | Evento | Referencia |
+|---|---|---|
+| 03-mar-2026 20:28 | Consulta "RELIABLE SOLUTIONS" -> NO disponible | 260303200037 |
+| 03-mar-2026 20:58 | Consulta "AI RELIABLE SOLUTIONS" -> Disponible | 260303200996 |
+| 03-mar-2026 21:26 | Solicitud formal de Certificacion de Denominacion Social | 5395974 |
+| 04-mar-2026 14:01 | Certificacion emitida: "AI RELIABLE SOLUTIONS, SOCIEDAD LIMITADA" | Cert. 26044948 |
+
+- Emails de origen: `no-reply@rmc.es` (sin enlace publico compartible, notificaciones directas a alucasrio@gmail.com). IDs Gmail: 49934, 49935, 49936, 49944 (este ultimo con los 2 PDFs adjuntos: certificado + factura).
+- Validez legal de la certificacion: 6 meses desde emision (venceria ~04-sep-2026).
+- Notaria (Maria Vico, Notaria Isabel Cobos, San Fernando de Henares) pidio el certificado el 26-mar-2026 para constitucion — pendiente verificar si la constitucion se completo dentro de plazo.
+- **12-sep-2026**: certificado confirmado caducado. Segun rmc.es/privado/CertificacionesDenominaciones.aspx, el procedimiento es: (1) nueva solicitud en la web con nuevo numero de referencia, (2) enviar email a solicitudes@rmc.es adjuntando el certificado caducado + nuevo numero de referencia. Se preparo borrador en Gmail (Borradores, id 52138) con los 2 PDFs originales adjuntos y el texto explicativo, pendiente de completar con el nuevo numero de referencia antes de enviar.
+- **Usuario ya tramito la nueva solicitud en la web (12-sep-2026)** — pendiente respuesta del RMC. Seguimiento: tarea HP en curso, a la espera.
+
 Nota de precio: Porkbun avisó (email 6-sep-2026) de subida de precio de renovación .solutions a **$31.41/año** a partir del 6-oct-2026 — revisar si renovar antes o dejar caducar alguno si no se usa.
 
 ## Formularios de contacto
