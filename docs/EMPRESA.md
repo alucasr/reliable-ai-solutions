@@ -30,6 +30,8 @@ Los 4 se registraron en fechas muy próximas (2-4 marzo 2026), como parte de la 
 
 **Nota sobre reliablesolutions.ai (recuperado de conversacion, 17-ago-2026)**: este dominio YA TENIA hosting activo en Namecheap (email "Your Hosting Account Details for reliablesolutions.ai") con 3 registros MX propios detectados por Cloudflare. Por eso se decidio dejarlo **sin tocar nameservers** en vez de migrarlo a Cloudflare como los otros 3 — para no arriesgar romper el hosting/correo que ya tenia configurado. Se presentaron 2 opciones al usuario (mover tambien a Cloudflare ya que los registros estaban copiados, o dejarlo tal cual) — **no consta que se cerrara la decision final** en el historico revisado; sigue pendiente de confirmar.
 
+**ACTUALIZACION (13-sep-2026): reliablesolutions.ai activado.** El dominio nunca habia tenido contenido propio — solo la "Namecheap Parking Page" por defecto (fichero `parking-page.shtml`, sin tocar desde 17-mayo-2023). Se creo una landing corporativa propia (mismo estilo visual que reliableai/smartgenai para coherencia de marca) que presenta la empresa y enlaza a los 2 productos activos, subida a `public_html` del dominio principal de la cuenta cPanel. Verificado HTTP 200 con el contenido correcto tras la subida.
+
 ## Registro Mercantil Central (RMC) — Denominacion Social
 
 Tramite realizado antes de comprar los dominios, para verificar/reservar el nombre legal de la empresa.
