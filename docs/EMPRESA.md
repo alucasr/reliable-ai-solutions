@@ -49,7 +49,44 @@ Tramite realizado antes de comprar los dominios, para verificar/reservar el nomb
 
 Nota de precio: Porkbun avisó (email 6-sep-2026) de subida de precio de renovación .solutions a **$31.41/año** a partir del 6-oct-2026 — revisar si renovar antes o dejar caducar alguno si no se usa.
 
-## Migracion webs a cPanel Namecheap (evitar bloqueo LaLiga) — COMPLETADA PARCIALMENTE (13-sep-2026)
+## 🌐 Cómo funciona la resolución de la URL (para no técnicos)
+
+Cuando alguien escribe `reliableai.solutions` en el navegador, ocurre esta cadena:
+
+1. **Registrador** (EuroDNS/Porkbun/Namecheap): es solo el "propietario administrativo" del nombre — quién puede modificarlo, renovarlo, etc. NO decide dónde vive la web.
+2. **Nameservers** (delegados desde el registrador hacia Cloudflare: `bowen.ns.cloudflare.com` / `sarah.ns.cloudflare.com`): le dicen a internet "para saber la configuración de este dominio, pregunta a Cloudflare". Este cambio de nameservers se hizo el 18-ago-2026 (ver historial más abajo) y es gratuito.
+3. **Registros DNS en Cloudflare** (la "libreta de direcciones" del dominio): el registro **A** (`reliableai.solutions → 198.177.120.192`) le dice al navegador la IP exacta del servidor a contactar. Antes apuntaba (de forma oculta, vía un "Worker route") a la infraestructura compartida de Cloudflare Pages; ahora apunta directo al hosting cPanel de Namecheap.
+4. **Proxy (nube naranja/gris)**: con nube **naranja** (proxied), el tráfico pasa primero por los servidores de Cloudflare (de ahí el problema de IP compartida y el bloqueo LaLiga). Con nube **gris** (DNS only, lo que se configuró en la migración), el navegador va DIRECTO a la IP del hosting — Cloudflare solo actúa de "listín telefónico", no de intermediario.
+5. **Servidor de hosting** (cPanel, IP 198.177.120.192): recibe la petición HTTP(S), busca la carpeta correspondiente al dominio (`/home/reliudxl/reliableai.solutions/`) y devuelve el `index.html`.
+
+En resumen: **registrador = dueño del nombre**, **nameservers = a quién preguntar**, **registro DNS = la dirección real**, **proxy = si hay intermediario o no**.
+
+## 📧 Email: estado actual y configuración necesaria para evitarlo ir a spam
+
+**Estado actual (13-sep-2026): ningún dominio `.solutions` tiene email configurado.** Se verificó en Cloudflare → Email Routing en los 3 dominios: sin actividad, sin registros MX. Cualquier email dirigido a `@reliableai.solutions`, `@smartgenai.solutions` o `@aireliable.solutions` rebota (no llega a ningún sitio).
+
+Si en el futuro se quiere recibir/enviar correo desde estos dominios (ej. `contacto@reliableai.solutions`), hacen falta estos registros DNS, en este orden de importancia:
+
+1. **MX (Mail Exchanger)**: dice a quién entregar el correo entrante. Con **Cloudflare Email Routing** (gratis) se puede reenviar automáticamente a un Gmail existente sin pagar un buzón nuevo — Cloudflare genera el MX automáticamente al activarlo.
+2. **SPF (Sender Policy Framework)**: registro TXT que lista qué servidores tienen permiso de enviar correo "en nombre" del dominio. Sin esto, cualquiera podría enviar emails falsificando `@tudominio.solutions` y llegarían más fácilmente a la bandeja de otros — o tus propios envíos legítimos acabarán en spam.
+3. **DKIM (DomainKeys Identified Mail)**: firma criptográfica en cada email saliente que demuestra que no fue alterado y que salió de un servidor autorizado. Se activa automáticamente si usas Cloudflare Email Routing + "enviar como" desde Gmail, o lo proporciona el servicio de envío que se use (ej. Google Workspace).
+4. **DMARC (Domain-based Message Authentication)**: registro TXT que le dice a los servidores receptores (Gmail, Outlook, etc.) qué hacer si un email falla SPF/DKIM (rechazar, cuarentena, o nada) — y opcionalmente manda informes de intentos de suplantación a un email tuyo.
+
+**Sin estos 4 registros bien configurados, el riesgo principal es**: (a) no recibir correo dirigido al dominio (falta MX), (b) que tus envíos legítimos caigan en spam del destinatario (falta SPF/DKIM/DMARC), y (c) que alguien pueda hacer phishing suplantando tu dominio con más facilidad (falta SPF/DMARC estrictos).
+
+Nota: `reliablesolutions.ai` SÍ tenía MX configurado desde origen (hosting Namecheap) — pendiente de confirmar si sigue activo y si vale la pena replicar esa config en los otros 3 si se decide usarlos para correo corporativo.
+
+## 📜 Historial: cómo se pasó del registrador original a Cloudflare (17-18 ago 2026)
+
+Antes de la migración a cPanel (13-sep-2026, este informe), hubo un paso previo: mover la **gestión DNS** de los 3 dominios `.solutions` desde sus registradores originales hacia Cloudflare (sin cambiar el registrador en sí, solo delegando los nameservers).
+
+- **17-ago-2026**: se creó una cuenta Cloudflare vía "Continue with Google" (`alucasrio@gmail.com`), sin contraseña nueva que recordar. Se añadieron los 4 dominios como "sitios" en Cloudflare (plan Free en los 4).
+- Para `reliableai.solutions` y `smartgenai.solutions` (EuroDNS) y `aireliable.solutions` (Porkbun): se cambiaron los **nameservers** desde el panel de cada registrador hacia `bowen.ns.cloudflare.com` y `sarah.ns.cloudflare.com`. Este cambio tuvo **coste $0** (es una operación de configuración, no una compra) y Cloudflare escaneó automáticamente los registros DNS existentes antes del cambio para preservarlos.
+- **18-ago-2026, 09:58-10:40 UTC**: llegaron los emails de confirmación de Cloudflare ("... is now active on Cloudflare (Free plan)") para los 3 dominios, confirmando que la propagación de nameservers se completó (tardó ~horas, no los 24-48h que se advertía como margen máximo).
+- **`reliablesolutions.ai` (Namecheap)**: se añadió también a Cloudflare como "sitio", pero **deliberadamente sin cambiar sus nameservers** — se quedó gestionado 100% por Namecheap, porque ya tenía hosting activo (contratado por 2 años) y registros MX propios funcionando, y no se quiso arriesgar a romperlo. Cloudflare emitió un aviso ("[Action required] Update nameservers...") que se ignoró intencionadamente por este motivo.
+- Una vez con nameservers en Cloudflare, se desplegaron las 3 landing pages en **Cloudflare Pages** (SSL automático y gratuito vía Universal SSL) — esta fue la configuración que posteriormente causó el problema de bloqueo LaLiga, resuelto en la migración a cPanel documentada en la sección siguiente.
+
+
 
 Motivo: los 3 dominios .solutions en Cloudflare Pages sufren bloqueo de IP compartida cada partido de LaLiga. reliablesolutions.ai (IP propia en Namecheap) no sufre esto. Decision: migrar los sitios estaticos al mismo hosting cPanel que ya se paga (server706.web-hosting.com, cuenta reliudxl), como Addon/Create Domain, MANTENIENDO Cloudflare solo como gestor DNS (proxy desactivado, DNS-only) -- no se cambian nameservers.
 
