@@ -7,14 +7,26 @@
 
 ## Dominios registrados
 
-| Dominio | Registrador | Estado | Uso | Email (MX) |
-|---|---|---|---|---|
-| **reliableai.solutions** | Porkbun | Activo, desplegado (Cloudflare Pages) | Landing "vibrante" — candidato a **hub de contenido/blog** (más brandeable) | No configurado |
-| **smartgenai.solutions** | Porkbun | Activo, desplegado (Cloudflare Pages) | Landing "corporativa" | No configurado |
-| **aireliable.solutions** | Porkbun | Activo, desplegado (Cloudflare Pages) | Landing "dark/tech" | No configurado |
-| **reliablesolutions.ai** | Namecheap | Registrado, **aparcado a proposito** (sin tocar nameservers) | Sin uso nuevo definido | Tenia MX/hosting PREVIO activo (ver nota) |
+| Dominio | Registrador | Coste registro (IVA incl.) | Estado | Uso | Email (MX) |
+|---|---|---|---|---|---|
+| **reliableai.solutions** | **EuroDNS S.A.** (Luxemburgo) | 13,30€/año (10,99€ + IVA 21%: incluye 5,99€ tasa .solutions con descuento + 5€ privacidad WHOIS) — factura E-1791988, pedido 21470085, 3-mar-2026 | Migrado a cPanel (13-sep-2026) | Landing "vibrante" — candidato a **hub de contenido/blog** | No configurado |
+| **smartgenai.solutions** | **EuroDNS S.A.** (Luxemburgo) | 13,30€/año (mismo desglose) — factura E-1791987, pedido 21470084, 3-mar-2026 | Migrado a cPanel (13-sep-2026) | Landing "corporativa" | No configurado |
+| **aireliable.solutions** | **Porkbun** | $3.60/año (registro simple, sin privacidad WHOIS aparte) — orden 9675457, 4-mar-2026 | Sigue en Cloudflare Pages (bloqueo LaLiga activo) | Landing "dark/tech" | No configurado |
+| **reliablesolutions.ai** | Namecheap | No verificado en este repaso | Registrado, aparcado a proposito (sin tocar nameservers) | Hosting reutilizado para la migracion de los otros 2 | Tenia MX/hosting PREVIO activo (ver nota) |
 
-Los 4 se registraron en fechas muy próximas entre sí (posiblemente el mismo día), como parte de la fase de brainstorming inicial del proyecto.
+Los 4 se registraron en fechas muy próximas (2-4 marzo 2026), como parte de la fase de brainstorming inicial del proyecto — pero en **2 registradores distintos** (EuroDNS para los 2 primeros, Porkbun para aireliable), probablemente por comparar precios/promos del momento.
+
+**Verificación del registrador**: confirmado vía [ICANN Lookup](https://lookup.icann.org/en/lookup) (RDAP), que muestra el registrador oficial IANA de cada dominio directamente desde el registry (más fiable que asumir por el email de bienvenida). Tambien util: `dig`, `whois`, y el panel de "Registration" en Cloudflare (aunque este ultimo solo aplica si el dominio esta transferido a Cloudflare Registrar, que no es el caso aqui).
+
+## Estado de registros DNS (Cloudflare, gestor de DNS de los 3 .solutions)
+
+| Dominio | Registros DNS | Proxy | Notas |
+|---|---|---|---|
+| reliableai.solutions | A (@) → 198.177.120.192; TXT (_simpledcver, validacion ya usada) | DNS only (gris) | 2 de 200 registros usados. Sin `www`, sin MX (recomendaciones de Cloudflare pendientes si se quiere email o subdominio www) |
+| smartgenai.solutions | A (@) → 198.177.120.192; TXT (_simpledcver) | DNS only (gris) | 2 de 200 registros usados. Mismas recomendaciones pendientes (www, MX) |
+| aireliable.solutions | 1 registro tipo "Worker" (ruta bloqueada/candado) → proyecto Pages `dry-king-4e0e` | **Proxied (naranja)** — esta es la causa del bloqueo LaLiga | Unico registro, gestionado desde Cloudflare Pages, no editable directamente en DNS Records |
+
+
 
 **Nota sobre reliablesolutions.ai (recuperado de conversacion, 17-ago-2026)**: este dominio YA TENIA hosting activo en Namecheap (email "Your Hosting Account Details for reliablesolutions.ai") con 3 registros MX propios detectados por Cloudflare. Por eso se decidio dejarlo **sin tocar nameservers** en vez de migrarlo a Cloudflare como los otros 3 — para no arriesgar romper el hosting/correo que ya tenia configurado. Se presentaron 2 opciones al usuario (mover tambien a Cloudflare ya que los registros estaban copiados, o dejarlo tal cual) — **no consta que se cerrara la decision final** en el historico revisado; sigue pendiente de confirmar.
 
