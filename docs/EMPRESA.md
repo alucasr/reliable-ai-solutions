@@ -32,6 +32,8 @@ Los 4 se registraron en fechas muy próximas (2-4 marzo 2026), como parte de la 
 
 **ACTUALIZACION (13-sep-2026): reliablesolutions.ai activado.** El dominio nunca habia tenido contenido propio — solo la "Namecheap Parking Page" por defecto (fichero `parking-page.shtml`, sin tocar desde 17-mayo-2023). Se creo una landing corporativa propia (mismo estilo visual que reliableai/smartgenai para coherencia de marca) que presenta la empresa y enlaza a los 2 productos activos, subida a `public_html` del dominio principal de la cuenta cPanel. Verificado HTTP 200 con el contenido correcto tras la subida.
 
+**CONFIRMADO (13-sep-2026): aireliable.solutions NO se puede migrar sin cambiar de plan.** Reintentado "Create A New Domain" en cPanel -> error explicito "You have reached the maximum number of domains for this account" (2/2 addon domains ya usados por reliableai.solutions y smartgenai.solutions). Usuario decidio DEJARLO COMO ESTA por ahora (sigue en Cloudflare Pages con proxy activo, expuesto al bloqueo LaLiga). Opciones descartadas por ahora: subir de plan Namecheap (coste adicional), o usar subdominio de otro dominio ya migrado (cambiaria la URL). Revisar si en el futuro se decide actuar.
+
 ## Registro Mercantil Central (RMC) — Denominacion Social
 
 Tramite realizado antes de comprar los dominios, para verificar/reservar el nombre legal de la empresa.
