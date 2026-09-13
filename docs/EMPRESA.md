@@ -37,17 +37,18 @@ Tramite realizado antes de comprar los dominios, para verificar/reservar el nomb
 
 Nota de precio: Porkbun avisó (email 6-sep-2026) de subida de precio de renovación .solutions a **$31.41/año** a partir del 6-oct-2026 — revisar si renovar antes o dejar caducar alguno si no se usa.
 
-## Migracion webs a cPanel Namecheap (evitar bloqueo LaLiga) — EN CURSO (12-sep-2026)
+## Migracion webs a cPanel Namecheap (evitar bloqueo LaLiga) — COMPLETADA PARCIALMENTE (13-sep-2026)
 
-Motivo: los 3 dominios .solutions en Cloudflare Pages sufren bloqueo de IP compartida cada partido de LaLiga. reliablesolutions.ai (IP propia en Namecheap) no sufre esto. Decision: migrar los 3 sitios estaticos al mismo hosting cPanel que ya se paga (server706.web-hosting.com, cuenta reliudxl), como Addon/Create Domain, MANTENIENDO Cloudflare solo como gestor DNS (proxy desactivado) -- no se cambian nameservers.
+Motivo: los 3 dominios .solutions en Cloudflare Pages sufren bloqueo de IP compartida cada partido de LaLiga. reliablesolutions.ai (IP propia en Namecheap) no sufre esto. Decision: migrar los sitios estaticos al mismo hosting cPanel que ya se paga (server706.web-hosting.com, cuenta reliudxl), como Addon/Create Domain, MANTENIENDO Cloudflare solo como gestor DNS (proxy desactivado, DNS-only) -- no se cambian nameservers.
 
-- cPanel: https://server706.web-hosting.com:2083/cpsess.../frontend/jupiter/domains/index.html#/create (la sesion cpsess cambia cada login)
-- Usuario cPanel: reliudxl (contraseña la del email original de Namecheap "Your Hosting Account Details" -- PENDIENTE cambiarla tras terminar, salio en claro en chat de Telegram)
-- Como los dominios siguen con nameservers de Cloudflare (no de Namecheap), cPanel exige validacion alternativa: registro TXT `_simpledcver.<dominio>` con un valor JWT unico por dominio, a añadir en Cloudflare DNS.
-- reliableai.solutions: formulario "Create Domain" completado, TXT generado, PENDIENTE añadirlo en Cloudflare (usuario haciendo login) y validar.
-- smartgenai.solutions y aireliable.solutions: mismo flujo pendiente de repetir tras reliableai.solutions.
-- Zips locales listos en /tmp/ (reliableai.solutions.zip, smartgenai.solutions.zip, aireliable.solutions.zip) con el index.html de cada uno, para subir via File Manager tras crear cada Addon Domain.
-- Sesion de navegador aislada usada: session="cpanel_task".
+**Resultado final:**
+- ✅ **reliableai.solutions**: MIGRADO. Addon domain creado (validado via TXT `_simpledcver`), custom domain eliminado del proyecto Cloudflare Pages `shy-mud-8dc4`, registro A creado en Cloudflare (198.177.120.192, DNS-only), index.html subido y extraido en `/home/reliudxl/reliableai.solutions/`. Verificado: `curl` devuelve HTTP 200 con contenido correcto. SSL: certificado generico `*.web-hosting.com` de momento (funcional), AutoSSL propio pendiente de emitirse automaticamente.
+- ✅ **smartgenai.solutions**: MIGRADO igual que el anterior (proyecto Pages `smartgenai-solutions` eliminado, A record 198.177.120.192 DNS-only, index.html en `/home/reliudxl/smartgenai.solutions/`). Verificado HTTP 200.
+- ⏸️ **aireliable.solutions**: NO migrado. Bloqueante: el plan de hosting Namecheap tiene limite de **2 Addon Domains** (ya alcanzado con los 2 anteriores; ver cPanel Home -> Statistics -> Addon Domains). Usuario decidio dejarlo en Cloudflare por ahora (sigue afectado por el bloqueo LaLiga) en vez de subir de plan o usar subdominio. zip `aireliable.solutions.zip` dejado en `/home/reliudxl/` (raiz) por si se retoma.
+- Usuario cPanel: reliudxl (contraseña la del email original de Namecheap "Your Hosting Account Details" -- PENDIENTE cambiarla, salio en claro en chat de Telegram varias veces durante la migracion).
+- IP de destino usada para los registros A: **198.177.120.192** (misma que reliablesolutions.ai, mismo servidor).
+- Guia paso a paso completa del proceso (para repetir con aireliable.solutions u otros dominios futuros): `docs/GUIA_MIGRACION_WEBS_CLOUDFLARE_A_CPANEL.md` (mismo repo).
+- Screenshots del proceso: `~/Documents/Screenshots/migracion-webs/` (local, no en repo).
 
 ## Formularios de contacto
 Los 3 dominios de Cloudflare comparten el mismo endpoint hash de FormSubmit.co (`2c63d5b3755b7c7d0cbf6ee6e8c4d9ef`), pero **cada dominio requiere activación individual la primera vez que se envía desde él** (llega un email "Action Required: Activate FormSubmit").
